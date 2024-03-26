@@ -1,0 +1,16 @@
+{
+  "description": "",
+  "main": "productManager.js",
+  "type": "module",
+  "scripts": {
+    "dev":"nodemon ./src/data.js",
+    "start":"node ./src/app.js"
+  },
+  "keywords": [],
+
+
+
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

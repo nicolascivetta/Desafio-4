@@ -1,0 +1,29 @@
+[
+    {
+        "id": 1,
+        "title": "notebook",
+        "description": "hp 19",
+        "price": 150000,
+        "thumbnail": "https://img-hp.com",
+        "code": "hp19swg",
+        "stock": 15
+    },
+    {
+        "id": 2,
+        "title": "notebook",
+        "description": "samsung 22",
+        "price": 200000,
+        "thumbnail": "https://img-smng22.com",
+        "code": "smng22asd",
+        "stock": 12
+    },
+    {
+        "id": 3,
+        "title": "notebook",
+        "description": "noblex 20",
+        "price": 170000,
+        "thumbnail": "https://img-nblx20.com",
+        "code": "nblx20afj",
+        "stock": 20
+    }
+]
