@@ -43,10 +43,10 @@ class ProductManager{
 
     }
 
-    addProduct(title,description,price,thumbnail,code,stock){
+    addProduct(title,description,price,thumbnails=[],code,stock,category,status = true){
 
-        if(!title || !description || !price || !thumbnail || !code || !stock)
-            return `Todos los parametros son requeridos [title,description,price,thumbnail,code,stock]`;
+        if(!title || !description || !price || !code || !stock || !category)
+            return `Todos los parametros son requeridos [title,description,price,code,stock,category]`;
         
         const codRepetido = this.#products.some(p=> p.code == code);
         if(codRepetido)
@@ -56,7 +56,7 @@ class ProductManager{
         const id = this.#asignarIdProducto();
 
         const nuevoProducto = {
-            id, title, description, price, thumbnail, code, stock,
+            id, title, description, price, thumbnails, code, stock,category,status,
         };
         this.#products.push(nuevoProducto);
         this.#guardarArchivo();
@@ -73,11 +73,16 @@ class ProductManager{
     }
 
     getProductById(id){
+        let status = false;
+        let resp = `El producto con id ${id} no existe`
         const producto = this.#products.find(p => p.id == id);
-        if(producto)
-            return producto;
-        else
-            return `Not found productos con id = ${id}`
+        if(producto){
+            status = true;
+            resp = producto
+        } 
+
+        return {status,resp}
+
     }
 
     updateProduct(id, objetupdate){
