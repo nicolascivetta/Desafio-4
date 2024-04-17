@@ -1,29 +1,36 @@
 [
     {
         "id": 1,
-        "title": "notebook",
-        "description": "hp 19",
+        "title": "notebook hp",
+        "description": "hp 19 pulgadas...",
         "price": 150000,
         "thumbnail": "https://img-hp.com",
         "code": "hp19swg",
-        "stock": 15
+        "stock": 15,
+        "category": "notebooks",
+        "status":"true"
     },
     {
         "id": 2,
-        "title": "notebook",
-        "description": "samsung 22",
+        "title": "notebook samsung",
+        "description": "samsung 22 pulgadas...",
         "price": 200000,
         "thumbnail": "https://img-smng22.com",
         "code": "smng22asd",
-        "stock": 12
+        "stock": 12,
+        "category": "notebooks",
+        "status":"true"
+
     },
     {
         "id": 3,
-        "title": "notebook",
-        "description": "noblex 20",
+        "title": "notebook noblex",
+        "description": "noblex 20 pulgadas...",
         "price": 170000,
         "thumbnail": "https://img-nblx20.com",
         "code": "nblx20afj",
-        "stock": 20
+        "stock": 20,
+        "category": "notebooks",
+        "status":"true"
     }
 ]

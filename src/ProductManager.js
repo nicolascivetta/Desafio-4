@@ -7,7 +7,6 @@ import fs from 'fs';
 class ProductManager{
     #products;
     #path;
-    static idProducto = 0;
 
     constructor() {
         this.#path = './src/data/productos.json';
@@ -43,7 +42,7 @@ class ProductManager{
 
     }
 
-    addProduct(title,description,price,thumbnails=[],code,stock,category,status = true){
+    addProduct({title,description,price,thumbnails=[],code,stock,category,status = true}){
 
         if(!title || !description || !price || !code || !stock || !category)
             return `Todos los parametros son requeridos [title,description,price,code,stock,category]`;
