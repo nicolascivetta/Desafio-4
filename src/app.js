@@ -8,13 +8,14 @@ import productos from './routers/products.js';
 import carro from './routers/carts.js';
 import views from './routers/views.js';
 import __dirname from './utils.js';
-import ProductManager from './ProductManager.js';
+import { dbConnection } from "./database/config.js";
+import { productModel } from "./models/products.js";
+import { messageModel } from "./models/messages.js";
 
 
 const app = express();
 const PORT = 8080;
 
-const p= new ProductManager();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -30,19 +31,35 @@ app.use('/', views );
 app.use('/api/products', productos );
 app.use('/api/carts', carro);
 
+await dbConnection();
+
 const expressServer = app.listen(PORT,()=>{console.log(`Ejecutando aplicacion en el puerto ${PORT}`);});
-const socketServer = new Server(expressServer);
+const io = new Server(expressServer);
 
-socketServer.on('connection', socket=>{
+io.on('connection', async (socket)=>{
 
-    const productos = p.getProducts();
+    // Products
+    const productos = await productModel.find();
     socket.emit('productos', productos);
+    socket.on('agregarProducto', async (producto)=>{
+        const newProduct = await productModel.create({...producto});
+        if(newProduct){
+            productos.push(newProduct)
+            socket.emit('productos', productos);
+        }
+    });
 
-    socket.on('agregarProducto', producto=>{
-        console.log({producto});
-        const result = p.addProduct(producto);
-        if(result.producto)
-        socket.emit('productos', productos);
+    // Chat messages
+    const messages = await messageModel.find();
+    socket.emit('message', messages);
+
+    socket.on('message', async (data) =>{
+        const newMessage = await messageModel.create({...data});
+        if(newMessage){
+            const messages = await messageModel.find();
+            io.emit('messageLogs', messages);
+        };
+
     });
 });
 
