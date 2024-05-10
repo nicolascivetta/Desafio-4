@@ -1,11 +1,12 @@
 import mongoose from 'mongoose';
+import 'dotenv/config';
 
 export const dbConnection = async () =>{
     try {
-        await mongoose.connect('mongodb+srv://nicolascivetta2:holamanola2002@proyecto1.l4kuowt.mongodb.net/ecomerce');
+        await mongoose.connect(process.env.URI_MONGO_DB);
         console.log('Base de datos online');
     } catch (error) {
-        console.log('Error al levantar la base de datos');
+        console.log(`Error al levantar la base de datos ${error}`);
         process.exit(1);
     }
 

@@ -1,20 +1,19 @@
 import express from "express";
 import {Server, Socket} from 'socket.io';
 import {engine} from 'express-handlebars';
-
-
+import 'dotenv/config';
 
 import productos from './routers/products.js';
 import carro from './routers/carts.js';
 import views from './routers/views.js';
 import __dirname from './utils.js';
 import { dbConnection } from "./database/config.js";
-import { productModel } from "./models/products.js";
 import { messageModel } from "./models/messages.js";
-
+import path from "path";
+import { addProductService, getProductsService } from "./services/products.js";
 
 const app = express();
-const PORT = 8080;
+const PORT = process.env.PORT;
 
 
 app.use(express.json());
@@ -24,6 +23,7 @@ app.use(express.static(__dirname + '/public'));
 app.engine('handlebars', engine());
 app.set('views', __dirname + '/views');
 app.set('view engine', 'handlebars');
+app.use(express.static(path.join(__dirname, 'js')));
 
 
 
@@ -39,10 +39,11 @@ const io = new Server(expressServer);
 io.on('connection', async (socket)=>{
 
     // Products
-    const productos = await productModel.find();
-    socket.emit('productos', productos);
+    const {payload} = await getProductsService({});
+    const productos = payload;
+    socket.emit('productos', payload);
     socket.on('agregarProducto', async (producto)=>{
-        const newProduct = await productModel.create({...producto});
+        const newProduct = await addProductService({...producto});
         if(newProduct){
             productos.push(newProduct)
             socket.emit('productos', productos);

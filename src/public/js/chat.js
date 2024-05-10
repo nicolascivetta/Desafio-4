@@ -67,3 +67,4 @@ socket.on('nuevo_user', () =>{
         position: 'top-right'
     });
 });
+

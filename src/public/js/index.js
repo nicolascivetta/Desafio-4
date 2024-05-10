@@ -1,6 +1,6 @@
 
 
-const socket = io();
+const socket =io();
 
 socket.on('productos', productos => { 
     const tbody = document.getElementById('productos-body');
